@@ -1,106 +1,238 @@
-FORM:   
+File program:
+
+package javaapplication4;
+
+import java.io.File;
+import java.util.Scanner;
+
+public class Javaapplication4 {
+
+    @SuppressWarnings("resource")
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter the name of the file:");
+        String file_name = input.nextLine();
+        File f = new File(file_name);
+        
+        if (f.exists()) {
+            System.out.println("The file " + file_name + " exists");
+        } else {
+            System.out.println("The file " + file_name + " does not exist");
+        }
+        
+        if (f.exists()) {
+            if (f.canRead()) {
+                System.out.println("The file " + file_name + " is readable");
+            } else {
+                System.out.println("The file " + file_name + " is not readable");
+            }
+
+            if (f.canWrite()) {
+                System.out.println("The file " + file_name + " is writable");
+            } else {
+                System.out.println("The file " + file_name + " is not writable");
+            }
+
+            System.out.println("The file type is: " + file_name.substring(file_name.indexOf('.') + 1));
+            System.out.println("The length of the file: " + f.length());
+        }
+    }
+}
+
+
+
+
+9th Program:
+
+style.css
+
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+h1, h2 {
+    margin: 0;
+    padding: 10px;
+}
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+a {
+    text-decoration: none;
+    color: #000;
+}
+/* Header Styles */
+header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+}
+/* Navigation Menu Styles */
+nav {
+    background-color: #999;
+}
+nav ul {
+    display: flex;
+    justify-content: center;
+}
+nav li {
+    margin: 10px;
+}
+/* Content Area Styles */
+#content {
+    padding: 20px;
+}
+/* Responsive Styles */
+@media (max-width: 768px) {
+    header, nav {
+        text-align: center;
+    }
+    nav ul {
+        flex-direction: column;
+    }
+    nav li {
+        margin: 5px;
+    }
+}
+
+script.js:
+
+$(document).ready(function() {
+    // Initial page load
+    loadContent('home');
+
+    // Click event listeners for navigation links
+    $('#home').click(function(e) {
+        e.preventDefault();
+        loadContent('home');
+    });
+    $('#about').click(function(e) {
+        e.preventDefault();
+        loadContent('about');
+    });
+    $('#contact').click(function(e) {
+        e.preventDefault();
+        loadContent('contact');
+    });
+});
+
+function loadContent(page) {
+    $.ajax({
+        url: page + '.html',
+        type: 'GET',
+        dataType: 'html',
+        success: function(response) {
+            $('#content').html(response);
+        },
+        error: function() {
+            $('#content').html('<p>Error loading content.</p>');
+        }
+    });
+}
+
+
+index.html
+
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Collecting Data</title>
-<link rel="stylesheet" href="./css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive AJAX Website</title>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/script.js"></script>
 </head>
-<body class="container" style="margin-top: 50px;width: 50%; height:auto;">
-<h2 class="text-primary" style="margin-left: 15px; margin-bottom:10px">Hey There, Help Us In Collecting Data</h2>
-<form class="container" id="contactForm" onsubmit="submitForm(event)">
-<div class="card">
-<div class="card-body">
-<div class="form-group">
-<label for="exampleFormControlInput1">Enter Your Name</label>
-<input type="text" class="form-control" id="name" placeholder="Enter your name">
-</div>
-<div class="form-group">
-<label for="exampleFormControlInput1">Email address</label>
-<input type="email" class="form-control" id="email" placeholder="name@example.com">
-</div>
-</div>
-<button type="submit" class="btn btn-primary" style="background-color: blue; margin-left: 50px;width:50%; height: 100px; margin-top:50px ">
-Submit</button>
-</div>
-</form>
-<script>
-// Submit Function
-function submitForm(e) {
-    e.preventDefault(); // Prevent form from submitting traditionally
-    // Get values
-    var name = getInputVal('name');
-    var email = getInputVal('email');
-    document.getElementById('contactForm').reset();
-    alert("Thanks for giving data Mr./Ms. " + name);
-}
-// Function to get form values
-function getInputVal(id) {
-    return document.getElementById(id).value;
-}
-</script>
+<body>
+    <header>
+        <h1>Responsive AJAX Website</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="home.html" id="home">Home</a></li>
+            <li><a href="about.html" id="about">About</a></li>
+            <li><a href="contact.html" id="contact">Contact</a></li>
+        </ul>
+    </nav>
+    <div id="content">
+        <!-- Content will be dynamically loaded here -->
+    </div>
+</body>
+</html>
+
+
+about.html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+</head>
+<body>
+    <h2>Welcome to the About Page!</h2>
+    <p>This is the about-page content.</p>
 </body>
 </html>
 
 
 
-       INCREMENT AND DECREMENT:  
+contact.html
 
-APP.JS
 
-import React, { Component } from "react";
-import "./App.css";
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { value: 0 };
-  }
- 
-  incrementValue = () => {
-    this.setState((state) => ({
-      value: state.value + 1,
-    }));
-  };
- 
-  decrementValue = () => {
-    this.setState((state) => ({
-      value: state.value - 1,
-    }));
-  };
- 
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <h3>Local State in ReactJS</h3>
-          <h5>The value managed locally is: {this.state.value}</h5>
-          <div>
-            <button onClick={this.incrementValue}>
-               Increment!
-            </button>{" "}
-            <button onClick={this.decrementValue}>
-               Decrement!
-            </button>
-          </div>
-        </header>
-      </div>
-    );
-  }
-}
- 
-export default App;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+</head>
+<body>
+    <h2>Welcome to the Contact Page!</h2>
+    <p>Address</p>
+</body>
+</html>
 
 
 
+home.html
 
-APP.CSS    
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <h2>Welcome to the Home Page!</h2>
+    <p>This is the homepage content.</p>
+</body>
+</html>
 
-/* App.css*/
-.App {
-  text-align: center;
+
+
+index.css
+
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.coloring {
-  color: green;
-} 
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
